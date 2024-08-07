@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   
+</head>
+<body>
+    {% block content %}
+<h2>Category List</h2>
+<a href="{% url 'category_create' %}">Create new category</a>
+<ul>
+    {% for category in categories %}
+    <li>
+        {{ category.name }} 
+        <a href="{% url 'category_update' category.pk %}">Edit</a> 
+        <a href="{% url 'category_delete' category.pk %}">Delete</a>
+    </li>
+    {% endfor %}
+</ul>
+<a href="{% url 'product_list' %}" style="display: inline-block; padding: 10px 20px; background-color: blue; color: white; text-align: center; border-radius: 5px; text-decoration: none;">Go to Product List</a>
+
+{% endblock %}
+</body>
+</html>
+

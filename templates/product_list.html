@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Product List</title>
+</head>
+<body>
+    <h1>Product List</h1>
+    <a href="{% url 'product_create' %}">Create New Product</a>
+    <br>
+    <a href="{% url 'category_create' %}">Create new category</a>
+    <ul>
+        {% for product in products %}
+        <li>
+            <span>Name:</span> {{ product.name }} |
+            <span>Price:</span> {{ product.price }} |
+            <a href="{% url 'product_update' product.pk %}">Edit</a>
+            <span> / </span>
+            <a href="{% url 'product_delete' product.pk %}">Delete</a>
+        </li>
+        {% empty %}
+        <li>No products available.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
