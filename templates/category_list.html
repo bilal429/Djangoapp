@@ -3,24 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    {% block content %}
-<h2>Category List</h2>
-<a href="{% url 'category_create' %}">Create new category</a>
-<ul>
-    {% for category in categories %}
-    <li>
-        {{ category.name }} 
-        <a href="{% url 'category_update' category.pk %}">Edit</a> 
-        <a href="{% url 'category_delete' category.pk %}">Delete</a>
-    </li>
-    {% endfor %}
-</ul>
-<a href="{% url 'product_list' %}" style="display: inline-block; padding: 10px 20px; background-color: blue; color: white; text-align: center; border-radius: 5px; text-decoration: none;">Go to Product List</a>
+    <div class="container mt-5">
+        {% block content %}
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h2 class="mb-0">Category List</h2>
+            <a href="{% url 'category_create' %}" class="btn btn-primary">Create New Category</a>
+        </div>
+        <ul class="list-group">
+            {% for category in categories %}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span>{{ category.name }}</span>
+                <span>
+                    <a href="{% url 'category_update' category.pk %}" class="btn btn-sm btn-warning">Edit</a>
+                    <a href="{% url 'category_delete' category.pk %}" class="btn btn-sm btn-danger">Delete</a>
+                </span>
+            </li>
+            {% endfor %}
+        </ul>
+        <div class="mt-4">
+            <a href="{% url 'product_list' %}" class="btn btn-success">Go to Product List</a>
+        </div>
+        {% endblock %}
+    </div>
 
-{% endblock %}
+    <!-- Bootstrap JS, Popper.js, and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
 

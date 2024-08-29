@@ -2,24 +2,41 @@
 <html>
 <head>
     <title>Product List</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    <h1>Product List</h1>
-    <a href="{% url 'product_create' %}">Create New Product</a>
-    <br>
-    <a href="{% url 'category_create' %}">Create new category</a>
-    <ul>
-        {% for product in products %}
-        <li>
-            <span>Name:</span> {{ product.name }} |
-            <span>Price:</span> {{ product.price }} |
-            <a href="{% url 'product_update' product.pk %}">Edit</a>
-            <span> / </span>
-            <a href="{% url 'product_delete' product.pk %}">Delete</a>
-        </li>
-        {% empty %}
-        <li>No products available.</li>
-        {% endfor %}
-    </ul>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Product List</h1>
+
+        <!-- Action buttons -->
+        <div class="text-right mb-4">
+            <a href="{% url 'product_create' %}" class="btn btn-primary mr-2">Create New Product</a>
+            <a href="{% url 'category_create' %}" class="btn btn-secondary">Create New Category</a>
+        </div>
+
+        <!-- Product List -->
+        <ul class="list-group">
+            {% for product in products %}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <div>
+                    <strong>Name:</strong> {{ product.name }} |
+                    <strong>Price:</strong> ${{ product.price }}
+                </div>
+                <div>
+                    <a href="{% url 'product_update' product.pk %}" class="btn btn-sm btn-outline-warning">Edit</a>
+                    <a href="{% url 'product_delete' product.pk %}" class="btn btn-sm btn-outline-danger ml-2">Delete</a>
+                </div>
+            </li>
+            {% empty %}
+            <li class="list-group-item text-center">No products available.</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

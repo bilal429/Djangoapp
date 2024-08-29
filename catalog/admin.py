@@ -18,7 +18,7 @@ class CategoryAdmin(admin.ModelAdmin):
 
 class ProductAdmin(admin.ModelAdmin):
     form = ProductForm 
-    list_display = ('name', 'price', 'category', 'product_class')  
+    list_display = ('name', 'price','image', 'category', 'product_class')  
 
 
  

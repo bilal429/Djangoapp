@@ -70,3 +70,23 @@ def category_delete(request, pk):
         category.delete()
         return redirect('category_list')
     return render(request, 'category_confirm_delete.html', {'category': category})
+
+
+
+#  ------------home page-------------------
+
+
+def home_view(request):
+    categories = Category.objects.all()  # Retrieve all categories
+    products = Product.objects.all()  # Get all products for the home page
+    return render(request, 'home.html', {'products': products, 'categories': categories})
+
+def category_view(request):
+    categories = Category.objects.all()  # Get all categories for the sidebar menu
+    return render(request, 'category_list.html', {'categories': categories})
+
+def products_by_category_view(request, category_id):
+    categories = Category.objects.all()
+    category = get_object_or_404(Category, id=category_id)  # Get the specific category
+    products = Product.objects.filter(category=category)  # Get products in that category
+    return render(request, 'home.html', {'products': products, 'selected_category': category, 'categories': categories})
