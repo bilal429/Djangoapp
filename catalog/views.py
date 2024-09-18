@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Product, ProductClass,Category
 from .forms import ProductForm ,CategoryForm
+from cart.models import Cart, CartItem
 
 def product_create(request):
     if request.method == 'POST':
@@ -79,14 +80,63 @@ def category_delete(request, pk):
 def home_view(request):
     categories = Category.objects.all()  # Retrieve all categories
     products = Product.objects.all()  # Get all products for the home page
-    return render(request, 'home.html', {'products': products, 'categories': categories})
+
+    # Retrieve cart data
+    cart_id = request.session.get('cart_id')
+    cart_items = CartItem.objects.filter(cart_id=cart_id) if cart_id else []
+
+    context = {
+        'products': products,
+        'categories': categories,
+        'cart_items': cart_items,  # Pass cart items to the template
+    }
+    return render(request, 'home.html', context)
 
 def category_view(request):
     categories = Category.objects.all()  # Get all categories for the sidebar menu
-    return render(request, 'category_list.html', {'categories': categories})
+
+    # Retrieve cart data
+    cart_id = request.session.get('cart_id')
+    cart_items = CartItem.objects.filter(cart_id=cart_id) if cart_id else []
+
+    context = {
+        'categories': categories,
+        'cart_items': cart_items,  # Pass cart items to the template
+    }
+    return render(request, 'category_list.html', context)
 
 def products_by_category_view(request, category_id):
-    categories = Category.objects.all()
+    categories = Category.objects.all()  # Get all categories for the sidebar
     category = get_object_or_404(Category, id=category_id)  # Get the specific category
     products = Product.objects.filter(category=category)  # Get products in that category
-    return render(request, 'home.html', {'products': products, 'selected_category': category, 'categories': categories})
+
+    # Retrieve cart data
+    cart_id = request.session.get('cart_id')
+    cart_items = CartItem.objects.filter(cart_id=cart_id) if cart_id else []
+
+    context = {
+        'products': products,
+        'selected_category': category,
+        'categories': categories,
+        'cart_items': cart_items,  # Pass cart items to the template
+    }
+    return render(request, 'home.html', context)
+
+
+# --------------------------product   Detail ------------------------------
+
+
+def product_detail_view(request, product_id):
+    product = get_object_or_404(Product, id=product_id)
+    categories = Category.objects.all()
+
+    # Retrieve cart data
+    cart_id = request.session.get('cart_id')
+    cart_items = CartItem.objects.filter(cart_id=cart_id) if cart_id else []
+
+    context = {
+        'product': product,
+        'categories': categories,
+        'cart_items': cart_items,
+    }
+    return render(request, 'product_detail.html', context)

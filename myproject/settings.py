@@ -24,8 +24,8 @@ SECRET_KEY = 'django-insecure-@3xqt9bhp%1=ia9^fl9&2b=57&eh(aj1w!+g+%5qrj^j9(j88%
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
-ALLOWED_HOSTS = []
 
 AUTH_USER_MODEL = 'user.CustomUser'
 
@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'user',
     'catalog',
     'cart',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -124,6 +125,7 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
+STATIC_ROOT = 'static'
 
 STATIC_URL = 'static/'
 MEDIA_URL = '/media/'

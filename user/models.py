@@ -3,8 +3,12 @@ from django.contrib.auth.models import AbstractUser
 from .managers import CustomUserManager
 
 class CustomUser(AbstractUser):
-    USERNAME_FIELD = 'username'
-    REQUIRED_FIELDS = ['email']
+
+    
+    email = models.EmailField("email",unique=True)
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []
 
     USER_ROLES = (
         ('shop', 'Shop'),

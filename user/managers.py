@@ -1,8 +1,8 @@
 from django.contrib.auth.models import BaseUserManager
 
 class CustomUserManager(BaseUserManager):
-    def create_user(self, username, email=None, password=None, **extra_fields):
-        if not username:
+    def create_user(self, username=None, email=None, password=None, **extra_fields):
+        if not email:
             raise ValueError('The Username field must be set')
         email = self.normalize_email(email)
         extra_fields.setdefault('user_role', 'customer')  
